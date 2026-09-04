@@ -22,7 +22,8 @@ from .models import ApiKey
 
 router = APIRouter()
 
-KEY_PREFIX = "osk_"
+KEY_PREFIX = "sak_"
+LEGACY_KEY_PREFIX = "osk_"
 MAX_ACTIVE_KEYS = 10
 # last_used_at is informational; refreshing it on every /api/status poll would
 # write the row hundreds of times per job for no extra signal.
@@ -44,7 +45,7 @@ def generate_key() -> tuple[str, str, str]:
 
 
 def looks_like_key(token: str) -> bool:
-    return isinstance(token, str) and token.startswith(KEY_PREFIX)
+    return isinstance(token, str) and (token.startswith(KEY_PREFIX) or token.startswith(LEGACY_KEY_PREFIX))
 
 
 async def user_id_for_key(raw: str) -> Optional[object]:

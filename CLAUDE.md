@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-OpenShorts is an AI-powered vertical video generator that transforms long YouTube videos or local uploads into viral-ready short clips (9:16 format) for TikTok, Instagram Reels, and YouTube Shorts. Uses Google Gemini 2.0 Flash for viral moment detection and title generation.
+Shortify Agent is an AI-powered vertical video generator and autonomous agent that transforms long YouTube videos or local uploads into viral-ready short clips (9:16 format) for TikTok, Instagram Reels, and YouTube Shorts. Uses Google Gemini for viral moment detection and title generation.
 
 ## Development Commands
 
@@ -191,7 +191,7 @@ se desactiva porque el modelo diga `none`.
   caller's auth headers, so it can never drift from the REST behavior. Cloud
   mode 401s without a resolvable user; self-host stays BYOK-open.
 - **Webhooks**: `POST /api/process` takes `webhook_url` + optional
-  `webhook_secret` (HMAC-SHA256, `X-OpenShorts-Signature`). Validated with
+  `webhook_secret` (HMAC-SHA256, `X-Shortify-Signature` / `X-OpenShorts-Signature`). Validated with
   `security_utils.assert_public_url` at submit AND at delivery (DNS rebinding).
   Fired once per job from `run_job_wrapper` after the R2 archive so the payload
   can carry durable download links; survives redeploys via the resume manifest.

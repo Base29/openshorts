@@ -14,7 +14,7 @@ function PageShell({ title, children }) {
   return (
     <div className="min-h-screen bg-paper text-ink2">
       <header className="h-16 border-b border-rule bg-paper flex items-center justify-between px-6">
-        <a href="#app" className="font-display lowercase text-lg text-ink">OpenShorts</a>
+        <a href="#app" className="font-display lowercase text-lg text-ink">Shortify Agent</a>
         <a href="#app" className="text-sm lowercase text-muted hover:text-ink transition-colors">← Back to app</a>
       </header>
       <main className="p-8">
@@ -52,7 +52,7 @@ function Root() {
     if (hash === '#legal') return 'legal';
     // #landing = explicit landing view (app logo); section anchors keep the landing mounted
     if (['#landing', '#features', '#how-it-works', '#pricing', '#comparison', '#faq'].includes(hash)) return 'landing';
-    if (hash === '#app' || localStorage.getItem('openshorts_skip_landing') === '1') return 'app';
+    if (hash === '#app' || localStorage.getItem('shortify_skip_landing') === '1' || localStorage.getItem('openshorts_skip_landing') === '1') return 'app';
     return 'landing';
   };
 
@@ -65,6 +65,7 @@ function Root() {
   }, []);
 
   const handleLaunchApp = () => {
+    localStorage.setItem('shortify_skip_landing', '1');
     localStorage.setItem('openshorts_skip_landing', '1');
     window.location.hash = '#app';
     setView('app');

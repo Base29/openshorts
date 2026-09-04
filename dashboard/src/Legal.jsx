@@ -47,7 +47,7 @@ export default function Legal() {
 
                 <Section title="The short version">
                     <p>
-                        OpenShorts is an AI clip generator. There are two ways to use it:
+                        Shortify Agent is an AI clip generator and autonomous video agent. There are two ways to use it:
                     </p>
                     <ul className="list-disc pl-6 space-y-2">
                         <li>
@@ -55,12 +55,10 @@ export default function Legal() {
                             your own machine with your own API keys. No account, no payment, no data held by us.
                         </li>
                         <li>
-                            <strong className="text-ink">Hosted at openshorts.app:</strong> we run everything for
-                            you. It requires an account and offers a free plan and paid subscriptions; we store the
-                            videos you generate subject to the retention rules below.
+                            <strong className="text-ink">Hosted:</strong> managed instances subject to the retention rules below.
                         </li>
                     </ul>
-                    <p>By using the hosted Service you agree to the terms below.</p>
+                    <p>By using the Service you agree to the terms below.</p>
                 </Section>
 
                 <Section title="Accounts & sign-in">
@@ -133,7 +131,7 @@ export default function Legal() {
                     </ul>
                     <p>
                         If you submit content you do not have rights to, that is your responsibility. You agree to
-                        indemnify OpenShorts and its contributors against any third-party claim arising from content you
+                        indemnify Shortify Agent and its contributors against any third-party claim arising from content you
                         submitted. We may suspend or terminate accounts that abuse the Service or infringe others' rights.
                     </p>
                 </Section>
@@ -200,11 +198,7 @@ export default function Legal() {
                         personal data. You can delete your account and its data — including your video library — by
                         emailing{' '}
                         <A href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</A>. You may
-                        also lodge a complaint with your local supervisory authority (in Spain: AEPD,{' '}
-                        <A href="https://www.aepd.es" external>
-                            aepd.es
-                        </A>
-                        ).
+                        also lodge a complaint with your local supervisory authority.
                     </p>
                 </Section>
 
@@ -220,8 +214,7 @@ export default function Legal() {
 
                 <Section title="Self-hosted instances">
                     <p>
-                        OpenShorts is open source and may be self-hosted. This notice applies to the hosted version we
-                        operate at openshorts.app. Self-hosted instances are run by their administrators, whose data
+                        Shortify Agent is open source and may be self-hosted. This notice applies to the hosted version. Self-hosted instances are run by their administrators, whose data
                         handling and policies are their own responsibility, not ours.
                     </p>
                 </Section>

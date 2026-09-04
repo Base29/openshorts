@@ -33,9 +33,9 @@ import mcp_ui
 router = APIRouter()
 
 PROTOCOL_VERSIONS = ("2025-06-18", "2025-03-26", "2024-11-05")
-SERVER_INFO = {"name": "openshorts", "title": "OpenShorts", "version": "1.0.0"}
+SERVER_INFO = {"name": "shortify-agent", "title": "Shortify Agent", "version": "1.0.0"}
 INSTRUCTIONS = (
-    "OpenShorts turns long videos (YouTube URLs) into viral-ready vertical "
+    "Shortify Agent turns long videos (YouTube URLs) into viral-ready vertical "
     "clips. Typical flow: process_video -> poll get_job_status until "
     "'completed' (a job takes minutes; poll every 30-60s or pass webhook_url) "
     "-> list_clips -> optionally add_subtitles / publish_clip. Check "
@@ -89,7 +89,7 @@ TOOLS = [
                 },
                 "webhook_secret": {
                     "type": "string",
-                    "description": "Optional secret; the webhook body is then HMAC-SHA256 signed (X-OpenShorts-Signature).",
+                    "description": "Optional secret; the webhook body is then HMAC-SHA256 signed (X-Shortify-Signature).",
                 },
                 "force_low_quality": {
                     "type": "boolean",
@@ -394,9 +394,11 @@ async def handle_message(msg, tool_caller) -> Optional[dict]:
         return _rpc_result(msg_id, {"resourceTemplates": []})
     if method == "resources/read":
         uri = (msg.get("params") or {}).get("uri") or ""
-        # Per-call URIs (ui://openshorts/clip-picker/<job>) resolve to the same
+        # Per-call URIs (ui://shortify/clip-picker/<job>) resolve to the same
         # template; the data those carried was baked into the tool result.
-        if uri == mcp_ui.CLIP_PICKER_URI or uri.startswith(mcp_ui.CLIP_PICKER_URI + "/"):
+        if uri in (mcp_ui.CLIP_PICKER_URI, mcp_ui.LEGACY_CLIP_PICKER_URI) or \
+           uri.startswith(mcp_ui.CLIP_PICKER_URI + "/") or \
+           uri.startswith(mcp_ui.LEGACY_CLIP_PICKER_URI + "/"):
             return _rpc_result(msg_id, {"contents": [{
                 "uri": uri,
                 "mimeType": mcp_ui.MIME_TYPE,
@@ -448,8 +450,8 @@ async def _authorized(request: Request) -> bool:
 async def mcp_endpoint(request: Request):
     if not await _authorized(request):
         return JSONResponse(
-            {"error": "Authentication required. Pass an OpenShorts API key: "
-                      "Authorization: Bearer osk_... (create one in the dashboard)."},
+            {"error": "Authentication required. Pass a Shortify Agent API key: "
+                      "Authorization: Bearer sak_... (or osk_... created in the dashboard)."},
             status_code=401,
             headers={"WWW-Authenticate": "Bearer"},
         )

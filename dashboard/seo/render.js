@@ -27,9 +27,9 @@ const CSS = `
   --paper:oklch(13% 0.014 265);--paper2:oklch(16.5% 0.015 265);--paper3:oklch(20% 0.016 265);
   --ink:oklch(96% 0.006 262);--ink2:oklch(86% 0.01 262);--muted:oklch(64% 0.012 262);
   --rule:oklch(96% 0.006 262 / .08);--rule2:oklch(96% 0.006 262 / .14);
-  --brass:oklch(76% 0.17 50);--ok:oklch(75% 0.11 150);
-  --display:"Instrument Serif",ui-serif,Georgia,serif;
-  --body:"Geist",ui-sans-serif,system-ui,-apple-system,sans-serif;
+  --brass:oklch(76% 0.14 285);--ok:oklch(75% 0.11 150);
+  --display:"Plus Jakarta Sans",ui-sans-serif,system-ui,sans-serif;
+  --body:"Inter",ui-sans-serif,system-ui,-apple-system,sans-serif;
   --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,monospace;
 }
 *{box-sizing:border-box}
@@ -49,7 +49,7 @@ header.site .wrap{display:flex;align-items:center;justify-content:space-between;
 .nav{display:flex;gap:1.25rem;font-size:.875rem;text-transform:lowercase}
 .nav a{text-decoration:none;color:var(--muted)}
 .nav a:hover{color:var(--ink)}
-.cta{background:var(--brass);color:oklch(17% 0.03 50);padding:.5rem 1rem;
+.cta{background:var(--brass);color:oklch(15% 0.04 285);padding:.5rem 1rem;
   border-radius:8px;font-size:.875rem;font-weight:500;text-decoration:none;white-space:nowrap}
 main{padding:3rem 0 4rem}
 .crumbs{font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;
@@ -178,7 +178,7 @@ const buildGraph = (page) => {
 
 const NAV = `
 <header class="site"><div class="wrap">
-  <a class="brand" href="${SITE.url}/"><img src="/logo-openshorts.png" alt="OpenShorts logo" width="26" height="26">OpenShorts</a>
+  <a class="brand" href="${SITE.url}/"><img src="/logo-shortify.png" alt="Shortify Agent logo" width="26" height="26">Shortify Agent</a>
   <nav class="nav">
     <a href="/free-ai-clip-generator">Clip generator</a>
     <a href="/alternatives">Alternatives</a>
@@ -204,8 +204,7 @@ const footer = (related) => `
     <a href="/mcp">MCP server and API</a>
     <a href="/automate-shorts-api">Automate shorts</a>
   </div>
-  <p>OpenShorts self-hosted is free and open source under MIT. OpenShorts Cloud
-  is the hosted service: 20 free minutes a month, paid plans from $12/month.
+  <p>Shortify Agent is free and open source under MIT.
   Last updated ${esc(SITE.updated)}.</p>
 </div></footer>`
 
@@ -241,10 +240,12 @@ export function renderPage(page, related = []) {
 ${page.noindex ? '' : `<link rel="canonical" href="${canonical}">\n`}<meta name="robots" content="${
     page.noindex ? 'noindex,follow' : 'index,follow,max-image-preview:large,max-snippet:-1'
   }">
-<link rel="icon" type="image/png" href="/logo-openshorts.png">
+<link rel="icon" type="image/png" href="/logo-shortify.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+<link rel="apple-touch-icon" href="/logo192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Geist:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
 <meta property="og:type" content="article">
 <meta property="og:url" content="${canonical}">
 <meta property="og:title" content="${esc(page.title)}">
@@ -270,7 +271,7 @@ ${
   page.noindex
     ? ''
     : `<div class="byline">
-  By the OpenShorts team<span class="sep">·</span>
+  By the Shortify Agent team<span class="sep">·</span>
   Published <time datetime="${esc(page.published || SITE.published)}">${esc(page.published || SITE.published)}</time><span class="sep">·</span>
   Updated <time datetime="${esc(page.updated || SITE.updated)}">${esc(page.updated || SITE.updated)}</time>
 </div>`

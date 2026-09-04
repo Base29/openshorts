@@ -1,14 +1,14 @@
-"""OpenShorts CLI: clip long videos into vertical shorts from the terminal.
+"""Shortify Agent CLI: clip long videos into vertical shorts from the terminal.
 
-Zero dependencies by design so `uvx openshorts` and `pipx run openshorts`
+Zero dependencies by design so `uvx shortify` and `pipx run shortify`
 start instantly. Talks to the same REST API the dashboard and the MCP server
 use; nothing here can drift from what the app actually does.
 
 Auth and target come from the environment:
-  OPENSHORTS_API_KEY  osk_... key from the account page (cloud only)
-  OPENSHORTS_API_URL  defaults to https://api.openshorts.app; set to
-                      http://localhost:8000 for a self-hosted instance,
-                      where no key is needed.
+  SHORTIFY_API_KEY / OPENSHORTS_API_KEY   API key from the account page
+  SHORTIFY_API_URL / OPENSHORTS_API_URL   defaults to https://api.openshorts.app; set to
+                                          http://localhost:8000 for a self-hosted instance,
+                                          where no key is needed.
 """
 
 import argparse
@@ -24,12 +24,12 @@ POLL_SECONDS = 10
 
 
 def _base():
-    return os.environ.get("OPENSHORTS_API_URL", DEFAULT_API).rstrip("/")
+    return os.environ.get("SHORTIFY_API_URL") or os.environ.get("OPENSHORTS_API_URL", DEFAULT_API).rstrip("/")
 
 
 def _request(method, path, body=None):
     headers = {"Accept": "application/json"}
-    key = os.environ.get("OPENSHORTS_API_KEY")
+    key = os.environ.get("SHORTIFY_API_KEY") or os.environ.get("OPENSHORTS_API_KEY")
     if key:
         headers["Authorization"] = f"Bearer {key}"
     data = None

@@ -52,10 +52,10 @@ export default function ApiKeysCard() {
         <KeyRound size={16} className="text-brass" /> API keys
       </h3>
       <p className="text-muted text-sm mb-4">
-        Automate OpenShorts from agents and scripts. Connect any MCP client to{' '}
-        <code className="readout">https://mcp.openshorts.app/mcp</code> with{' '}
+        Automate Shortify Agent from agents and scripts. Connect any MCP client to{' '}
+        <code className="readout">/mcp</code> with{' '}
         <code className="readout">Authorization: Bearer &lt;key&gt;</code>, or call the REST API
-        directly. Keys use your plan's minutes.
+        directly.
       </p>
 
       {freshKey && (

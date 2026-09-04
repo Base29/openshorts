@@ -32,7 +32,7 @@ const sources = (items) =>
  * An engine that reads the raw HTML has no reason to prefer a JSON-LD offer over
  * a sentence, and the sentence is what gets quoted. */
 const pricingParagraph = `
-<p>OpenShorts comes in two editions and they are priced very differently, so it
+<p>Shortify Agent comes in two editions and they are priced very differently, so it
 is worth being precise. <strong>${esc(EDITIONS.selfHosted.name)}</strong> is free
 and open source under the MIT licence: ${esc(EDITIONS.selfHosted.summary)}
 <strong>${esc(EDITIONS.cloud.name)}</strong> is the hosted service:
@@ -46,26 +46,26 @@ function competitorPage(slug) {
   }).join('')
 
   const body = `
-<h2>Is OpenShorts a real alternative to ${esc(c.name)}?</h2>
-<p>Yes, with one honest caveat. OpenShorts covers the same core job:
+<h2>Is Shortify Agent a real alternative to ${esc(c.name)}?</h2>
+<p>Yes, with one honest caveat. Shortify Agent covers the same core job:
 it takes a long video, finds the segments worth clipping, cuts them, reframes
 them to 9:16 and burns in subtitles. It adds two things ${esc(c.name)} does not
 have, AI voice dubbing into more than 30 languages and an AI UGC generator with
 lip-synced actors. The caveat is that the free edition is self-hosted, which
 means Docker and a machine to run it on. If you want a hosted product with no
-setup, that is OpenShorts Cloud, and it is a paid service above 20 minutes a month.</p>
+setup, that is Shortify Agent Cloud, and it is a paid service above 20 minutes a month.</p>
 
 <h2>What does ${esc(c.name)} cost?</h2>
 <p class="checked">Pricing checked ${esc(c.checked)}. Vendors change plans without notice; verify before you buy.</p>
 ${li(c.tiers.map(([n, d]) => `<strong>${esc(n)}</strong>: ${esc(d)}`))}
 <div class="note"><span class="label">The part that catches people out</span><p>${esc(c.gotcha)}</p></div>
 
-<h2>What does OpenShorts cost?</h2>
+<h2>What does Shortify Agent cost?</h2>
 ${pricingParagraph}
 
-<h2>${esc(c.name)} vs OpenShorts, feature by feature</h2>
+<h2>${esc(c.name)} vs Shortify Agent, feature by feature</h2>
 <table>
-<thead><tr><th>Feature</th><th>OpenShorts</th><th>${esc(c.name)}</th></tr></thead>
+<thead><tr><th>Feature</th><th>Shortify Agent</th><th>${esc(c.name)}</th></tr></thead>
 <tbody>${rows}</tbody>
 </table>
 
@@ -83,52 +83,52 @@ ${li(c.whereWeDiffer.map(esc))}
 ${faqBlock([
   {
     q: `Is there a free alternative to ${c.name}?`,
-    a: `Yes. OpenShorts self-hosted is free and open source under MIT, with no watermark and no usage cap, and it runs on your own machine with Docker. OpenShorts Cloud also has a free tier of 20 minutes a month with a watermark and no credit card. ${c.name} starts at ${c.entryPrice}.`,
+    a: `Yes. Shortify Agent self-hosted is free and open source under MIT, with no watermark and no usage cap, and it runs on your own machine with Docker. Shortify Agent Cloud also has a free tier of 20 minutes a month with a watermark and no credit card. ${c.name} starts at ${c.entryPrice}.`,
   },
   {
     q: `Is there an open source alternative to ${c.name}?`,
-    a: `OpenShorts is MIT-licensed and the full source is on GitHub at github.com/mutonby/openshorts. ${c.name} is closed source. Being able to read the pipeline matters if you need to audit what happens to your video or change how the reframing behaves.`,
+    a: `Shortify Agent is MIT-licensed and the full source is on GitHub at github.com/mutonby/openshorts. ${c.name} is closed source. Being able to read the pipeline matters if you need to audit what happens to your video or change how the reframing behaves.`,
   },
   {
     q: `Can I switch from ${c.name} without losing quality?`,
-    a: `The pipelines are comparable on the core job. OpenShorts transcribes with faster-whisper at word level, detects scenes with PySceneDetect, and scores moments with Google Gemini 3.0 Flash, then reframes with MediaPipe face tracking stabilised against jitter. The honest difference is caption styling, where the commercial tools generally ship more presets.`,
+    a: `The pipelines are comparable on the core job. Shortify Agent transcribes with faster-whisper at word level, detects scenes with PySceneDetect, and scores moments with Google Gemini 3.0 Flash, then reframes with MediaPipe face tracking stabilised against jitter. The honest difference is caption styling, where the commercial tools generally ship more presets.`,
   },
   {
-    q: `Does OpenShorts put a watermark on clips?`,
-    a: `Self-hosted, never. On OpenShorts Cloud the free 20-minute tier is watermarked; every paid plan from $12/month is not.`,
+    q: `Does Shortify Agent put a watermark on clips?`,
+    a: `Self-hosted, never. On Shortify Agent Cloud the free 20-minute tier is watermarked; every paid plan from $12/month is not.`,
   },
 ])}
 
 ${sources([
   `${esc(c.name)} pricing, checked ${esc(c.checked)} on the vendor's public pricing page.`,
-  `OpenShorts pipeline details from the project source at <a href="${SITE.repo}" rel="noopener">github.com/mutonby/openshorts</a>.`,
+  `Shortify Agent pipeline details from the project source at <a href="${SITE.repo}" rel="noopener">github.com/mutonby/openshorts</a>.`,
 ])}
 `
 
   return {
     path: `/alternatives/${slug}`,
-    title: `Free & Open Source ${c.name} Alternative | OpenShorts`,
-    description: `OpenShorts vs ${c.name}, compared feature by feature with current pricing. Self-hosted is free and open source; hosted starts at $12/month. ${c.name} starts at ${c.entryPrice}.`,
+    title: `Free & Open Source ${c.name} Alternative | Shortify Agent`,
+    description: `Shortify Agent vs ${c.name}, compared feature by feature with current pricing. Self-hosted is free and open source; hosted starts at $12/month. ${c.name} starts at ${c.entryPrice}.`,
     h1: `The free, open source ${c.name} alternative`,
     breadcrumb: [{ name: 'Alternatives', path: '/alternatives' }, { name: c.name }],
     tldr: [
-      `OpenShorts is an open source AI clip generator you can run yourself for free, or use hosted from $12/month. ${esc(c.name)} is a closed-source cloud product starting at ${esc(c.entryPrice)}.`,
-      `Both find viral moments in long video and reframe them to 9:16 with face tracking. OpenShorts adds dubbing into 30+ languages and AI UGC video with lip-synced actors. ${esc(c.name)} has the more polished caption library.`,
-      `Pick ${esc(c.name)} if you want zero setup and nothing else matters. Pick OpenShorts if you want to self-host for privacy, keep costs near zero, or change how the pipeline behaves.`,
+      `Shortify Agent is an open source AI clip generator you can run yourself for free, or use hosted from $12/month. ${esc(c.name)} is a closed-source cloud product starting at ${esc(c.entryPrice)}.`,
+      `Both find viral moments in long video and reframe them to 9:16 with face tracking. Shortify Agent adds dubbing into 30+ languages and AI UGC video with lip-synced actors. ${esc(c.name)} has the more polished caption library.`,
+      `Pick ${esc(c.name)} if you want zero setup and nothing else matters. Pick Shortify Agent if you want to self-host for privacy, keep costs near zero, or change how the pipeline behaves.`,
     ],
     body,
     faq: [
       {
         q: `Is there a free alternative to ${c.name}?`,
-        a: `Yes. OpenShorts self-hosted is free and open source under MIT, with no watermark and no usage cap. OpenShorts Cloud has a free tier of 20 minutes a month and paid plans from $12/month. ${c.name} starts at ${c.entryPrice}.`,
+        a: `Yes. Shortify Agent self-hosted is free and open source under MIT, with no watermark and no usage cap. Shortify Agent Cloud has a free tier of 20 minutes a month and paid plans from $12/month. ${c.name} starts at ${c.entryPrice}.`,
       },
       {
         q: `Is there an open source alternative to ${c.name}?`,
-        a: `OpenShorts is MIT-licensed with full source on GitHub. ${c.name} is closed source.`,
+        a: `Shortify Agent is MIT-licensed with full source on GitHub. ${c.name} is closed source.`,
       },
       {
-        q: `Does OpenShorts put a watermark on clips?`,
-        a: `Self-hosted, never. On OpenShorts Cloud the free 20-minute tier is watermarked and every paid plan from $12/month is not.`,
+        q: `Does Shortify Agent put a watermark on clips?`,
+        a: `Self-hosted, never. On Shortify Agent Cloud the free 20-minute tier is watermarked and every paid plan from $12/month is not.`,
       },
     ],
   }
@@ -138,14 +138,14 @@ const ALTERNATIVES = Object.keys(COMPETITORS)
 
 const hubPage = () => ({
   path: '/alternatives',
-  title: 'Open Source Alternatives to Opus Clip, Klap, Vizard & Submagic | OpenShorts',
+  title: 'Open Source Alternatives to Opus Clip, Klap, Vizard & Submagic | Shortify Agent',
   description:
-    'Side-by-side comparisons of OpenShorts against the four main AI clipping tools, with current pricing checked July 2026. Self-hosted free, hosted from $12/month.',
+    'Side-by-side comparisons of Shortify Agent against the four main AI clipping tools, with current pricing checked July 2026. Self-hosted free, hosted from $12/month.',
   h1: 'Open source alternatives to the main AI clipping tools',
   breadcrumb: [{ name: 'Alternatives' }],
   tldr: [
-    'OpenShorts is the only open source, self-hostable tool in this category. Every other tool on this page is a closed-source cloud service.',
-    'Entry prices as of July 2026: OpenShorts $0 self-hosted or $12/month hosted, Submagic from $14/month, Opus Clip $15/month, Vizard $19.99/month, Klap $29/month.',
+    'Shortify Agent is the only open source, self-hostable tool in this category. Every other tool on this page is a closed-source cloud service.',
+    'Entry prices as of July 2026: Shortify Agent $0 self-hosted or $12/month hosted, Submagic from $14/month, Opus Clip $15/month, Vizard $19.99/month, Klap $29/month.',
     'The tools are not interchangeable. Submagic does not detect moments at all, Klap does not let you tune the output, and Vizard expects you in a timeline. The individual comparisons below say where each one genuinely wins.',
   ],
   body: `
@@ -161,7 +161,7 @@ two tools that each do half the work.</p>
 <table>
 <thead><tr><th>Tool</th><th>Entry price</th><th>Open source</th><th>Finds moments for you</th></tr></thead>
 <tbody>
-<tr><td class="os">OpenShorts</td><td class="os">$0 self-hosted, $12/mo hosted</td><td class="yes">Yes, MIT</td><td>Yes</td></tr>
+<tr><td class="os">Shortify Agent</td><td class="os">$0 self-hosted, $12/mo hosted</td><td class="yes">Yes, MIT</td><td>Yes</td></tr>
 <tr><td>Submagic</td><td>From $14/mo</td><td>No</td><td>No, captions only</td></tr>
 <tr><td>Opus Clip</td><td>$15/mo</td><td>No</td><td>Yes</td></tr>
 <tr><td>Vizard</td><td>$19.99/mo</td><td>No</td><td>Yes, then you edit</td></tr>
@@ -169,43 +169,43 @@ two tools that each do half the work.</p>
 </tbody>
 </table>
 
-<h2>What does OpenShorts cost?</h2>
+<h2>What does Shortify Agent cost?</h2>
 ${pricingParagraph}
 
 ${faqBlock([
   {
     q: 'What is the cheapest AI clip generator?',
-    a: 'OpenShorts self-hosted is free with no cap, but you supply the machine and your own Google Gemini API key, whose free tier covers 1,500 requests a day. Among hosted products, OpenShorts Cloud is the cheapest paid entry at $12/month, followed by Submagic from $14/month and Opus Clip at $15/month.',
+    a: 'Shortify Agent self-hosted is free with no cap, but you supply the machine and your own Google Gemini API key, whose free tier covers 1,500 requests a day. Among hosted products, Shortify Agent Cloud is the cheapest paid entry at $12/month, followed by Submagic from $14/month and Opus Clip at $15/month.',
   },
   {
     q: 'Which AI clipping tools are open source?',
-    a: 'OpenShorts is MIT-licensed with full source on GitHub. Opus Clip, Klap, Vizard and Submagic are all closed-source commercial products.',
+    a: 'Shortify Agent is MIT-licensed with full source on GitHub. Opus Clip, Klap, Vizard and Submagic are all closed-source commercial products.',
   },
 ])}
 `,
   faq: [
     {
       q: 'What is the cheapest AI clip generator?',
-      a: 'OpenShorts self-hosted is free with no cap. Among hosted products OpenShorts Cloud is the cheapest paid entry at $12/month, followed by Submagic from $14/month and Opus Clip at $15/month.',
+      a: 'Shortify Agent self-hosted is free with no cap. Among hosted products Shortify Agent Cloud is the cheapest paid entry at $12/month, followed by Submagic from $14/month and Opus Clip at $15/month.',
     },
     {
       q: 'Which AI clipping tools are open source?',
-      a: 'OpenShorts is MIT-licensed with full source on GitHub. Opus Clip, Klap, Vizard and Submagic are closed-source commercial products.',
+      a: 'Shortify Agent is MIT-licensed with full source on GitHub. Opus Clip, Klap, Vizard and Submagic are closed-source commercial products.',
     },
   ],
 })
 
 const freeClipGenerator = () => ({
   path: '/free-ai-clip-generator',
-  title: 'Free AI Clip Generator (Open Source, No Watermark) | OpenShorts',
+  title: 'Free AI Clip Generator (Open Source, No Watermark) | Shortify Agent',
   description:
     'A genuinely free AI clip generator: MIT-licensed, self-hosted with Docker, no watermark and no usage cap. Hosted option from $12/month if you would rather not run it.',
   h1: 'A free AI clip generator that is actually free',
   breadcrumb: [{ name: 'Free AI clip generator' }],
   tldr: [
-    'OpenShorts self-hosted is a free AI clip generator under the MIT licence. No watermark, no usage cap, no subscription. You run it with Docker and supply your own Google Gemini API key, whose free tier covers 1,500 requests a day.',
+    'Shortify Agent self-hosted is a free AI clip generator under the MIT licence. No watermark, no usage cap, no subscription. You run it with Docker and supply your own Google Gemini API key, whose free tier covers 1,500 requests a day.',
     'It turns a long video into 3 to 15 vertical clips: faster-whisper transcribes at word level, PySceneDetect finds the cuts, Gemini 3.0 Flash scores the moments, and MediaPipe face tracking reframes each one to 9:16.',
-    'If you do not want to run anything, OpenShorts Cloud gives you 20 free minutes a month with a watermark, and paid plans from $12/month without one.',
+    'If you do not want to run anything, Shortify Agent Cloud gives you 20 free minutes a month with a watermark, and paid plans from $12/month without one.',
   ],
   body: `
 <h2>What does "free" actually mean here?</h2>
@@ -252,16 +252,16 @@ constraint for most people is not whether short video works, it is that cutting 
 
 ${faqBlock([
   {
-    q: 'Is OpenShorts free forever or a trial?',
-    a: 'The self-hosted edition is free forever under the MIT licence, with no watermark and no cap. It is not a trial and there is no metering in it. OpenShorts Cloud is a separate hosted service with a permanently free 20 minute per month tier and paid plans from $12/month.',
+    q: 'Is Shortify Agent free forever or a trial?',
+    a: 'The self-hosted edition is free forever under the MIT licence, with no watermark and no cap. It is not a trial and there is no metering in it. Shortify Agent Cloud is a separate hosted service with a permanently free 20 minute per month tier and paid plans from $12/month.',
   },
   {
     q: 'Does the free version add a watermark?',
-    a: 'The self-hosted edition never adds a watermark. The free tier of OpenShorts Cloud does; paid Cloud plans from $12/month do not.',
+    a: 'The self-hosted edition never adds a watermark. The free tier of Shortify Agent Cloud does; paid Cloud plans from $12/month do not.',
   },
   {
     q: 'Do I need to pay for an API key?',
-    a: 'You need a Google Gemini API key for the self-hosted edition. Its free tier covers 1,500 requests a day, which is more than enough for individual use. ElevenLabs for dubbing and fal.ai for AI UGC video are optional and billed by those vendors. OpenShorts Cloud includes the keys.',
+    a: 'You need a Google Gemini API key for the self-hosted edition. Its free tier covers 1,500 requests a day, which is more than enough for individual use. ElevenLabs for dubbing and fal.ai for AI UGC video are optional and billed by those vendors. Shortify Agent Cloud includes the keys.',
   },
   {
     q: 'How many clips does it generate per video?',
@@ -271,12 +271,12 @@ ${faqBlock([
 `,
   faq: [
     {
-      q: 'Is OpenShorts free forever or a trial?',
-      a: 'The self-hosted edition is free forever under MIT, with no watermark and no cap. OpenShorts Cloud is a separate hosted service with a free 20 minute per month tier and paid plans from $12/month.',
+      q: 'Is Shortify Agent free forever or a trial?',
+      a: 'The self-hosted edition is free forever under MIT, with no watermark and no cap. Shortify Agent Cloud is a separate hosted service with a free 20 minute per month tier and paid plans from $12/month.',
     },
     {
       q: 'Does the free version add a watermark?',
-      a: 'The self-hosted edition never adds a watermark. The free tier of OpenShorts Cloud does; paid Cloud plans do not.',
+      a: 'The self-hosted edition never adds a watermark. The free tier of Shortify Agent Cloud does; paid Cloud plans do not.',
     },
     {
       q: 'How many clips does it generate per video?',
@@ -287,13 +287,13 @@ ${faqBlock([
 
 const openSourceClipper = () => ({
   path: '/open-source-video-clipper',
-  title: 'Open Source Video Clipper, Self-Hosted with Docker | OpenShorts',
+  title: 'Open Source Video Clipper, Self-Hosted with Docker | Shortify Agent',
   description:
     'An MIT-licensed open source video clipper you can self-host. AI moment detection with Gemini, face-tracked 9:16 reframing, word-level subtitles and 30+ language dubbing.',
   h1: 'An open source video clipper you can self-host',
   breadcrumb: [{ name: 'Open source video clipper' }],
   tldr: [
-    'OpenShorts is an MIT-licensed video clipper that runs entirely on your own hardware via Docker Compose. Source video never leaves the machine.',
+    'Shortify Agent is an MIT-licensed video clipper that runs entirely on your own hardware via Docker Compose. Source video never leaves the machine.',
     'The stack is Python 3.11, FastAPI, faster-whisper, PySceneDetect, MediaPipe, YOLOv8, FFmpeg and Google Gemini 3.0 Flash, with a React dashboard.',
     'It is the only open source tool in this category. Opus Clip, Klap, Vizard and Submagic are all closed-source cloud services.',
   ],
@@ -324,7 +324,7 @@ billing, managed keys and the hosted-service infrastructure, is carved out under
 a separate commercial licence and is not needed to self-host.</p>
 
 <h2>How does it compare to the closed-source tools?</h2>
-<p>OpenShorts is the only open source option in this category. As of July 2026,
+<p>Shortify Agent is the only open source option in this category. As of July 2026,
 Opus Clip starts at $15/month, Submagic from $14/month, Vizard at $19.99/month
 and Klap at $29/month, and none of them can be self-hosted or audited. The
 trade-off is real in both directions: they ship more caption presets and require
@@ -333,14 +333,14 @@ no setup, and you cannot read a line of what they do with your video.</p>
 ${faqBlock([
   {
     q: 'Is there an open source alternative to Opus Clip?',
-    a: 'Yes. OpenShorts is MIT-licensed and self-hostable with Docker, and covers the same core job: AI moment detection, face-tracked 9:16 reframing and word-level subtitles. Opus Clip is closed source and cloud only, starting at $15/month.',
+    a: 'Yes. Shortify Agent is MIT-licensed and self-hostable with Docker, and covers the same core job: AI moment detection, face-tracked 9:16 reframing and word-level subtitles. Opus Clip is closed source and cloud only, starting at $15/month.',
   },
   {
     q: 'Can I run it without sending video to any third party?',
     a: 'Transcription, scene detection, reframing and encoding all run locally. Moment scoring calls the Google Gemini API, which receives the transcript rather than the video file. Dubbing and AI UGC generation are optional and call ElevenLabs and fal.ai respectively; leave them off and nothing but transcript text leaves the machine.',
   },
   {
-    q: 'What licence is OpenShorts released under?',
+    q: 'What licence is Shortify Agent released under?',
     a: 'MIT for the core application. The cloud/ directory covering billing and hosted infrastructure is under a separate commercial licence and is not required for self-hosting.',
   },
 ])}
@@ -348,10 +348,10 @@ ${faqBlock([
   faq: [
     {
       q: 'Is there an open source alternative to Opus Clip?',
-      a: 'Yes. OpenShorts is MIT-licensed and self-hostable with Docker, covering AI moment detection, face-tracked 9:16 reframing and word-level subtitles. Opus Clip is closed source and cloud only.',
+      a: 'Yes. Shortify Agent is MIT-licensed and self-hostable with Docker, covering AI moment detection, face-tracked 9:16 reframing and word-level subtitles. Opus Clip is closed source and cloud only.',
     },
     {
-      q: 'What licence is OpenShorts released under?',
+      q: 'What licence is Shortify Agent released under?',
       a: 'MIT for the core application. The cloud/ directory covering billing and hosted infrastructure is under a separate commercial licence and is not required for self-hosting.',
     },
   ],
@@ -359,7 +359,7 @@ ${faqBlock([
 
 const howItWorks = () => ({
   path: '/how-openshorts-works',
-  title: 'How OpenShorts Turns Long Video Into Vertical Clips | OpenShorts',
+  title: 'How Shortify Agent Turns Long Video Into Vertical Clips | Shortify Agent',
   description:
     'The full pipeline, stage by stage: word-level transcription, scene detection, Gemini moment scoring, face-tracked 9:16 reframing, subtitles, dubbing and publishing.',
   h1: 'How a long video becomes a vertical clip',
@@ -367,10 +367,10 @@ const howItWorks = () => ({
   tldr: [
     CANONICAL_ANSWERS.howItWorks,
     'The two stages that decide whether a clip is usable are moment scoring and reframing. Everything else is mechanical.',
-    'OpenShorts self-hosted is free and open source under MIT, so every stage below can be read and changed. OpenShorts Cloud runs the same pipeline on a GPU from $12/month.',
+    'Shortify Agent self-hosted is free and open source under MIT, so every stage below can be read and changed. Shortify Agent Cloud runs the same pipeline on a GPU from $12/month.',
   ],
   body: `
-<h2>What is OpenShorts?</h2>
+<h2>What is Shortify Agent?</h2>
 <p>${esc(CANONICAL_ANSWERS.whatIsIt)}</p>
 
 <h2>The pipeline, stage by stage</h2>
@@ -402,7 +402,7 @@ ${pricingParagraph}
 
 ${faqBlock([
   {
-    q: 'What AI model does OpenShorts use to find viral moments?',
+    q: 'What AI model does Shortify Agent use to find viral moments?',
     a: 'Google Gemini 3.0 Flash. It receives the word-level transcript with timestamps together with PySceneDetect scene boundaries, and returns 3 to 15 segments of 15 to 60 seconds scored on hook strength, emotional payload and whether the segment stands alone without surrounding context.',
   },
   {
@@ -417,7 +417,7 @@ ${faqBlock([
 `,
   faq: [
     {
-      q: 'What AI model does OpenShorts use to find viral moments?',
+      q: 'What AI model does Shortify Agent use to find viral moments?',
       a: 'Google Gemini 3.0 Flash, which receives the word-level transcript with timestamps together with PySceneDetect scene boundaries and returns 3 to 15 segments of 15 to 60 seconds.',
     },
     {
@@ -434,16 +434,16 @@ ${faqBlock([
  * names. */
 const noWatermark = () => ({
   path: '/free-ai-clip-generator-no-watermark',
-  title: 'Free AI Clip Generator With No Watermark (Self-Hosted) | OpenShorts',
+  title: 'Free AI Clip Generator With No Watermark (Self-Hosted) | Shortify Agent',
   description:
-    'The only structurally free way to get AI clips without a watermark is running the tool yourself. OpenShorts is MIT-licensed, self-hosted with Docker: no watermark, no cap. Hosted plans without watermark from $12/month.',
+    'The only structurally free way to get AI clips without a watermark is running the tool yourself. Shortify Agent is MIT-licensed, self-hosted with Docker: no watermark, no cap. Hosted plans without watermark from $12/month.',
   h1: 'A free AI clip generator with no watermark, and why that is rare',
   breadcrumb: [{ name: 'No-watermark clip generator' }],
   published: '2026-08-04',
   updated: '2026-08-04',
   tldr: [
-    'Every hosted "free" clip generator watermarks its exports, because the watermark is the upsell. The one structural exception is software you run yourself. OpenShorts self-hosted is MIT-licensed, runs with Docker, and never watermarks anything because there is no watermark code in it.',
-    'OpenShorts Cloud, the hosted service, follows the same rule as every other hosted tool and says so plainly: the free 20 minutes a month carry a watermark, and paid plans from $12/month do not.',
+    'Every hosted "free" clip generator watermarks its exports, because the watermark is the upsell. The one structural exception is software you run yourself. Shortify Agent self-hosted is MIT-licensed, runs with Docker, and never watermarks anything because there is no watermark code in it.',
+    'Shortify Agent Cloud, the hosted service, follows the same rule as every other hosted tool and says so plainly: the free 20 minutes a month carry a watermark, and paid plans from $12/month do not.',
     'If a tool claims free, unlimited and unwatermarked at once and it is a hosted service, one of the three claims is temporary.',
   ],
   body: `
@@ -467,8 +467,8 @@ source the hosted service runs, and you can read it line by line.</p>
 <table>
 <thead><tr><th>Tool</th><th>Free tier watermark</th><th>Cheapest way to remove it</th></tr></thead>
 <tbody>
-<tr><td class="os">OpenShorts self-hosted</td><td class="os yes">Never</td><td class="os">Nothing to remove</td></tr>
-<tr><td class="os">OpenShorts Cloud</td><td class="os">Yes, on the free 20 min/month</td><td class="os">$12/month</td></tr>
+<tr><td class="os">Shortify Agent self-hosted</td><td class="os yes">Never</td><td class="os">Nothing to remove</td></tr>
+<tr><td class="os">Shortify Agent Cloud</td><td class="os">Yes, on the free 20 min/month</td><td class="os">$12/month</td></tr>
 <tr><td>Opus Clip</td><td>Yes, and free-plan exports leave storage after 3 days</td><td>Starter, $15/month</td></tr>
 <tr><td>Klap</td><td>Free tier does not export at all</td><td>$29/month</td></tr>
 <tr><td>Vizard</td><td>Free plan allows 120 upload minutes and 10 exports</td><td>From $19.99/month</td></tr>
@@ -487,10 +487,10 @@ price is $12/month, and the comparison table above is what that buys elsewhere.<
 ${faqBlock([
   {
     q: 'Is there a free AI clip generator without a watermark?',
-    a: 'Yes, with one honest qualifier: it is self-hosted. OpenShorts is MIT-licensed and runs on your own machine with Docker, with no watermark and no usage cap. Hosted services, including OpenShorts Cloud, watermark their free tiers; unwatermarked hosted plans start at $12/month.',
+    a: 'Yes, with one honest qualifier: it is self-hosted. Shortify Agent is MIT-licensed and runs on your own machine with Docker, with no watermark and no usage cap. Hosted services, including Shortify Agent Cloud, watermark their free tiers; unwatermarked hosted plans start at $12/month.',
   },
   {
-    q: 'Does the free OpenShorts Cloud plan add a watermark?',
+    q: 'Does the free Shortify Agent Cloud plan add a watermark?',
     a: 'Yes. The hosted free tier is 20 minutes a month with a watermark and no credit card. Paid Cloud plans from $12/month have no watermark, and the self-hosted edition never adds one.',
   },
   {
@@ -501,16 +501,16 @@ ${faqBlock([
 
 ${sources([
   'Vendor free-tier and watermark terms checked 2026-08-04 on each public pricing page.',
-  `OpenShorts pipeline source at <a href="${SITE.repo}" rel="noopener">github.com/mutonby/openshorts</a>, where the absence of watermark code is checkable.`,
+  `Shortify Agent pipeline source at <a href="${SITE.repo}" rel="noopener">github.com/mutonby/openshorts</a>, where the absence of watermark code is checkable.`,
 ])}
 `,
   faq: [
     {
       q: 'Is there a free AI clip generator without a watermark?',
-      a: 'Yes, self-hosted: OpenShorts is MIT-licensed and runs on your own machine with no watermark and no cap. Hosted free tiers, including OpenShorts Cloud at 20 minutes a month, carry a watermark; unwatermarked hosted plans start at $12/month.',
+      a: 'Yes, self-hosted: Shortify Agent is MIT-licensed and runs on your own machine with no watermark and no cap. Hosted free tiers, including Shortify Agent Cloud at 20 minutes a month, carry a watermark; unwatermarked hosted plans start at $12/month.',
     },
     {
-      q: 'Does the free OpenShorts Cloud plan add a watermark?',
+      q: 'Does the free Shortify Agent Cloud plan add a watermark?',
       a: 'Yes, the hosted free tier is watermarked. Paid Cloud plans from $12/month are not, and the self-hosted edition never adds one.',
     },
   ],
@@ -518,12 +518,12 @@ ${sources([
 
 /* "AI video generator" is two products wearing one name. Most searchers mean
  * text-to-video; this page splits the intent explicitly and wins the half that
- * describes OpenShorts instead of bouncing all of it from the homepage. */
+ * describes Shortify Agent instead of bouncing all of it from the homepage. */
 const openSourceVideoGenerator = () => ({
   path: '/open-source-ai-video-generator',
-  title: 'Free Open Source AI Video Generator: Clips From Real Footage | OpenShorts',
+  title: 'Free Open Source AI Video Generator: Clips From Real Footage | Shortify Agent',
   description:
-    'Open source AI video generation splits in two: text-to-video models that invent footage, and clip generators that turn long recordings into shorts. OpenShorts is the second: MIT-licensed, self-hosted, free.',
+    'Open source AI video generation splits in two: text-to-video models that invent footage, and clip generators that turn long recordings into shorts. Shortify Agent is the second: MIT-licensed, self-hosted, free.',
   h1: 'An open source AI video generator, in the sense that matters for creators',
   breadcrumb: [{ name: 'Open source AI video generator' }],
   published: '2026-08-04',
@@ -531,7 +531,7 @@ const openSourceVideoGenerator = () => ({
   tldr: [
     '"AI video generator" names two different products. Text-to-video models invent new footage from a written prompt. Clip generators produce short videos from long footage you already have. Confusing the two wastes an afternoon.',
     'For text-to-video there are real open source options, including Genmo’s Mochi 1, Open-Sora and HunyuanVideo, all of which need a serious GPU.',
-    'For turning your own recordings into vertical shorts, OpenShorts is MIT-licensed and self-hosted: transcription, AI moment scoring, face-tracked 9:16 reframing and burned-in subtitles, free on your own machine or hosted from $12/month.',
+    'For turning your own recordings into vertical shorts, Shortify Agent is MIT-licensed and self-hosted: transcription, AI moment scoring, face-tracked 9:16 reframing and burned-in subtitles, free on your own machine or hosted from $12/month.',
   ],
   body: `
 <h2>Which "AI video generator" are you looking for?</h2>
@@ -539,14 +539,14 @@ const openSourceVideoGenerator = () => ({
 prompt, you want a text-to-video model. If you have a podcast, webinar, stream
 or interview recording and want short vertical videos out of it, you want a clip
 generator. The two share almost no technology and no workflow. This page covers
-both honestly and goes deep on the second, because that is what OpenShorts is.</p>
+both honestly and goes deep on the second, because that is what Shortify Agent is.</p>
 
 <h2>Open source text-to-video, briefly</h2>
 <p>As of August 2026 the notable open-weight text-to-video models include
 Genmo's Mochi 1 (Apache 2.0), Open-Sora, Tencent's HunyuanVideo and Alibaba's
 Wan family. They genuinely generate novel footage, and they need data-center or
 high-end consumer GPUs to run at usable speed. If that is your goal, start with
-those projects; OpenShorts will not do it.</p>
+those projects; Shortify Agent will not do it.</p>
 
 <h2>Generating videos from footage you already have</h2>
 <p>${esc(CANONICAL_ANSWERS.whatIsIt)}</p>
@@ -555,14 +555,14 @@ ${pricingParagraph}
 
 <h2>Other open source clip generators, compared honestly</h2>
 <p class="checked">Checked 2026-08-04 on GitHub. Star counts move; positioning rarely does.</p>
-<p>OpenShorts is not the only open source project in this space, and pretending
+<p>Shortify Agent is not the only open source project in this space, and pretending
 otherwise would not survive one GitHub search. The notable neighbours:</p>
 <ul>
 <li><strong>AI-Youtube-Shorts-Generator</strong>: the most-starred repo in the category, with a leaner scope built around highlight extraction and cropping.</li>
 <li><strong>supoclip</strong> and <strong>clippyme</strong>: smaller projects covering transcription-driven clipping, the latter also using Gemini for moment selection.</li>
 <li><strong>MoneyPrinterTurbo</strong>: generates videos from text plus stock footage, which is a different job than clipping your own recordings.</li>
 </ul>
-<p>Where OpenShorts differs from all of them is surface area: a web dashboard, a
+<p>Where Shortify Agent differs from all of them is surface area: a web dashboard, a
 REST API with keys, completion webhooks, an MCP server for agents, split-screen
 and screencast layouts for two-person and screen-share footage, dubbing into 30+
 languages, and direct publishing to TikTok, Instagram Reels and YouTube Shorts.
@@ -572,31 +572,31 @@ better fit, and that is a real recommendation rather than false modesty.</p>
 ${faqBlock([
   {
     q: 'Is there a free open source AI video generator?',
-    a: 'Yes, in both senses. For text-to-video, Genmo’s Mochi 1, Open-Sora and HunyuanVideo publish open weights and need a powerful GPU. For making clips from your own footage, OpenShorts is MIT-licensed and runs with Docker on an ordinary machine: free self-hosted with no watermark, or hosted from $12/month.',
+    a: 'Yes, in both senses. For text-to-video, Genmo’s Mochi 1, Open-Sora and HunyuanVideo publish open weights and need a powerful GPU. For making clips from your own footage, Shortify Agent is MIT-licensed and runs with Docker on an ordinary machine: free self-hosted with no watermark, or hosted from $12/month.',
   },
   {
     q: 'Can open source AI generate videos from text?',
-    a: 'Yes. Mochi 1 (Apache 2.0), Open-Sora and HunyuanVideo generate footage from prompts. Expect to need a high-end GPU, and expect quality below the closed frontier models. OpenShorts is not a text-to-video tool; it turns long real footage into short vertical clips.',
+    a: 'Yes. Mochi 1 (Apache 2.0), Open-Sora and HunyuanVideo generate footage from prompts. Expect to need a high-end GPU, and expect quality below the closed frontier models. Shortify Agent is not a text-to-video tool; it turns long real footage into short vertical clips.',
   },
   {
     q: 'What is the best open source AI video generator for shorts?',
-    a: 'For turning long recordings into publishable vertical shorts with subtitles, OpenShorts covers the widest pipeline: AI moment scoring, face-tracked reframing, split-screen layouts, dubbing and direct social publishing, MIT-licensed. Simpler repos like AI-Youtube-Shorts-Generator cover a leaner version of the same job with less to configure.',
+    a: 'For turning long recordings into publishable vertical shorts with subtitles, Shortify Agent covers the widest pipeline: AI moment scoring, face-tracked reframing, split-screen layouts, dubbing and direct social publishing, MIT-licensed. Simpler repos like AI-Youtube-Shorts-Generator cover a leaner version of the same job with less to configure.',
   },
 ])}
 
 ${sources([
   'Open-weight text-to-video model landscape checked 2026-08-04 on the respective GitHub repositories.',
-  `OpenShorts source at <a href="${SITE.repo}" rel="noopener">github.com/mutonby/openshorts</a>.`,
+  `Shortify Agent source at <a href="${SITE.repo}" rel="noopener">github.com/mutonby/openshorts</a>.`,
 ])}
 `,
   faq: [
     {
       q: 'Is there a free open source AI video generator?',
-      a: 'Yes, in both senses of the phrase. For text-to-video: Mochi 1, Open-Sora and HunyuanVideo, all GPU-hungry. For clipping your own footage into shorts: OpenShorts, MIT-licensed, free self-hosted or hosted from $12/month.',
+      a: 'Yes, in both senses of the phrase. For text-to-video: Mochi 1, Open-Sora and HunyuanVideo, all GPU-hungry. For clipping your own footage into shorts: Shortify Agent, MIT-licensed, free self-hosted or hosted from $12/month.',
     },
     {
       q: 'Can open source AI generate videos from text?',
-      a: 'Yes: Mochi 1, Open-Sora and HunyuanVideo publish open weights. OpenShorts is not one of them; it turns long real footage into short vertical clips.',
+      a: 'Yes: Mochi 1, Open-Sora and HunyuanVideo publish open weights. Shortify Agent is not one of them; it turns long real footage into short vertical clips.',
     },
   ],
 })
@@ -606,17 +606,17 @@ ${sources([
  * and active-speaker cutting are capabilities the competitor pages cannot show. */
 const podcastToShorts = () => ({
   path: '/podcast-to-shorts',
-  title: 'Podcast to Shorts: AI Clips That Keep Both Speakers in Frame | OpenShorts',
+  title: 'Podcast to Shorts: AI Clips That Keep Both Speakers in Frame | Shortify Agent',
   description:
-    'Turn a video podcast into vertical clips without cropping out half the conversation. OpenShorts stacks both speakers with a split layout and cuts to whoever is talking. Free self-hosted, hosted from $12/month.',
+    'Turn a video podcast into vertical clips without cropping out half the conversation. Shortify Agent stacks both speakers with a split layout and cuts to whoever is talking. Free self-hosted, hosted from $12/month.',
   h1: 'Turn a podcast into shorts without cropping out half the conversation',
   breadcrumb: [{ name: 'Podcast to shorts' }],
   published: '2026-08-04',
   updated: '2026-08-04',
   tldr: [
-    'A two-person podcast is the hardest input an auto-clipper faces: a single centered crop shows the wrong person half the time, or an empty chair. OpenShorts detects a real two-shot and renders both speakers stacked in half-frames, so a reply never happens off screen.',
+    'A two-person podcast is the hardest input an auto-clipper faces: a single centered crop shows the wrong person half the time, or an empty chair. Shortify Agent detects a real two-shot and renders both speakers stacked in half-frames, so a reply never happens off screen.',
     'The rest of the pipeline is the same as for any long video: word-level transcription, scene detection, Gemini scoring the 3 to 15 strongest moments, subtitles burned in, and direct publishing to TikTok, Instagram Reels and YouTube Shorts.',
-    'Cost is where podcasts punish credit-based tools: they bill the whole episode length before you see a clip. Self-hosted OpenShorts has no meter at all; hosted plans start at $12/month.',
+    'Cost is where podcasts punish credit-based tools: they bill the whole episode length before you see a clip. Self-hosted Shortify Agent has no meter at all; hosted plans start at $12/month.',
   ],
   body: `
 <h2>Why podcasts break naive clipping tools</h2>
@@ -629,7 +629,7 @@ footage. It is not carelessness, it is that a single moving crop cannot show two
 people at once.</p>
 
 <h2>How the two-speaker layout works</h2>
-<p>OpenShorts detects when a scene is a genuine two-shot, meaning both faces are
+<p>Shortify Agent detects when a scene is a genuine two-shot, meaning both faces are
 visible in the same frame for at least half of the sampled frames. That test
 matters: it is what separates a real side-by-side conversation from
 shot/countershot editing, where a naive split would show the same person twice.
@@ -652,12 +652,12 @@ one side of the table.</p>
 <p>Credit-metered tools bill on the length of the video you import, not on the
 clips you keep. As of August 2026, a 60-minute episode costs 60 credits at Opus
 Clip or Vizard whether it yields 5 usable clips or 20, and a weekly show at that
-length runs past the entry plans of both. OpenShorts prices the other way
+length runs past the entry plans of both. Shortify Agent prices the other way
 around:</p>
 ${pricingParagraph}
 
 <h2>What about audio-only podcasts?</h2>
-<p>OpenShorts clips video. If your show is audio-only, the pipeline has nothing
+<p>Shortify Agent clips video. If your show is audio-only, the pipeline has nothing
 to reframe, and tools that generate waveform audiograms serve that case better.
 The moment you record video, even a static two-camera setup, everything on this
 page applies.</p>
@@ -665,7 +665,7 @@ page applies.</p>
 ${faqBlock([
   {
     q: 'How do I turn a podcast into clips for free?',
-    a: 'Self-host OpenShorts: clone the MIT-licensed repo, run docker compose up, add a free-tier Google Gemini API key and paste your episode link. No watermark and no cap. If you would rather not run anything, OpenShorts Cloud clips 20 minutes a month free with a watermark, and paid plans start at $12/month.',
+    a: 'Self-host Shortify Agent: clone the MIT-licensed repo, run docker compose up, add a free-tier Google Gemini API key and paste your episode link. No watermark and no cap. If you would rather not run anything, Shortify Agent Cloud clips 20 minutes a month free with a watermark, and paid plans start at $12/month.',
   },
   {
     q: 'How does it handle two people talking?',
@@ -685,7 +685,7 @@ ${sources([
   faq: [
     {
       q: 'How do I turn a podcast into clips for free?',
-      a: 'Self-host OpenShorts (MIT, Docker, bring a free-tier Gemini key): no watermark, no cap. Or use OpenShorts Cloud: 20 free minutes a month with a watermark, paid plans from $12/month.',
+      a: 'Self-host Shortify Agent (MIT, Docker, bring a free-tier Gemini key): no watermark, no cap. Or use Shortify Agent Cloud: 20 free minutes a month with a watermark, paid plans from $12/month.',
     },
     {
       q: 'How does it handle two people talking?',
@@ -699,7 +699,7 @@ ${sources([
  * told from the URL-first angle. */
 const youtubeConverter = () => ({
   path: '/youtube-to-shorts-converter',
-  title: 'YouTube to Shorts Converter: Paste a Link, Get 9:16 Clips | OpenShorts',
+  title: 'YouTube to Shorts Converter: Paste a Link, Get 9:16 Clips | Shortify Agent',
   description:
     'Convert a YouTube video into Shorts by pasting the link. No download-and-reupload step, free on the self-hosted edition and on the hosted free tier. AI picks the moments, crops to 9:16 and burns in subtitles.',
   h1: 'A YouTube to Shorts converter that starts from the link',
@@ -714,7 +714,7 @@ const youtubeConverter = () => ({
   body: `
 <h2>How to convert a YouTube video into Shorts</h2>
 <ol>
-<li>Paste the video's URL. OpenShorts fetches it directly; there is no download-then-upload round trip through your machine.</li>
+<li>Paste the video's URL. Shortify Agent fetches it directly; there is no download-then-upload round trip through your machine.</li>
 <li>The video is transcribed with word-level timestamps and scanned for scene boundaries.</li>
 <li>Google Gemini scores the transcript against the scenes and picks the 3 to 15 segments most likely to stand alone, 15 to 60 seconds each.</li>
 <li>Each segment is cropped to 9:16 with face tracking, or a split or screencast layout when the content calls for it, and subtitles are burned in.</li>
@@ -727,7 +727,7 @@ const youtubeConverter = () => ({
 only accepts uploads adds a detour: fetch the file with a downloader, wait,
 re-upload gigabytes, wait again. It also decides who can use the free tier at
 all. As of August 2026, Opus Clip's free plan accepts uploads only, with link
-import reserved for paid plans. OpenShorts accepts links on every tier,
+import reserved for paid plans. Shortify Agent accepts links on every tier,
 including both free ones, because the fetch step costs the pipeline almost
 nothing and the detour costs you the most time of any step.</p>
 
@@ -743,7 +743,7 @@ keep the screen legible instead of cropping it to ribbons.</p>
 <p>Yours, and those you have permission for. Your own uploads, your podcast
 guests' episodes with their blessing, client channels you manage, licensed or
 public-domain footage. Clipping someone else's video without permission is a
-copyright question OpenShorts does not answer for you, and platforms remove
+copyright question Shortify Agent does not answer for you, and platforms remove
 reuploads that fail it. The tool fetches what you point it at; the rights are
 your call and your responsibility.</p>
 
@@ -753,11 +753,11 @@ ${pricingParagraph}
 ${faqBlock([
   {
     q: 'Can I convert a YouTube video to Shorts for free?',
-    a: 'Yes, two ways. Self-host OpenShorts (MIT licence, Docker, your own free-tier Gemini API key): unlimited, no watermark. Or use the hosted free tier: 20 minutes of source video a month, watermarked, no credit card. Paid hosted plans without watermark start at $12/month.',
+    a: 'Yes, two ways. Self-host Shortify Agent (MIT licence, Docker, your own free-tier Gemini API key): unlimited, no watermark. Or use the hosted free tier: 20 minutes of source video a month, watermarked, no credit card. Paid hosted plans without watermark start at $12/month.',
   },
   {
     q: 'Do I need to download the video first?',
-    a: 'No. Paste the URL and OpenShorts fetches the source itself on every tier, including free ones. Local file upload is also supported when the source is not online.',
+    a: 'No. Paste the URL and Shortify Agent fetches the source itself on every tier, including free ones. Local file upload is also supported when the source is not online.',
   },
   {
     q: 'Can I clip a video from someone else’s channel?',
@@ -768,11 +768,11 @@ ${faqBlock([
   faq: [
     {
       q: 'Can I convert a YouTube video to Shorts for free?',
-      a: 'Yes: self-hosted OpenShorts is free with no cap (MIT, Docker, your own Gemini key), and the hosted free tier covers 20 watermarked minutes a month. Paid hosted plans start at $12/month.',
+      a: 'Yes: self-hosted Shortify Agent is free with no cap (MIT, Docker, your own Gemini key), and the hosted free tier covers 20 watermarked minutes a month. Paid hosted plans start at $12/month.',
     },
     {
       q: 'Do I need to download the video first?',
-      a: 'No. OpenShorts fetches the video from the pasted URL on every tier, free tiers included.',
+      a: 'No. Shortify Agent fetches the video from the pasted URL on every tier, free tiers included.',
     },
   ],
 })
@@ -782,15 +782,15 @@ ${faqBlock([
  * intent instead of one page diluting both. */
 const automateShorts = () => ({
   path: '/automate-shorts-api',
-  title: 'Automate Shorts: Clip and Publish Video on a Schedule via API | OpenShorts',
+  title: 'Automate Shorts: Clip and Publish Video on a Schedule via API | Shortify Agent',
   description:
-    'One POST starts the job, one signed webhook ends it, and the clips publish themselves. Automate shorts with the OpenShorts REST API, HMAC webhooks, n8n or cron. No per-call meter; self-hosted has no meter at all.',
+    'One POST starts the job, one signed webhook ends it, and the clips publish themselves. Automate shorts with the Shortify Agent REST API, HMAC webhooks, n8n or cron. No per-call meter; self-hosted has no meter at all.',
   h1: 'Automate shorts end to end: one request in, one webhook out',
   breadcrumb: [{ name: 'Automate shorts' }],
   published: '2026-08-04',
   updated: '2026-08-04',
   tldr: [
-    'The whole automation loop is two HTTP messages. You POST a video URL with an API key and a webhook address; when processing ends, OpenShorts sends exactly one signed webhook carrying clip titles and durable download links. No polling loop, no timeout guessing.',
+    'The whole automation loop is two HTTP messages. You POST a video URL with an API key and a webhook address; when processing ends, Shortify Agent sends exactly one signed webhook carrying clip titles and durable download links. No polling loop, no timeout guessing.',
     'API calls draw from the same minute balance as the dashboard, with no separate meter and no per-call pricing. On the self-hosted edition there is no meter at all, which is what makes an always-on pipeline affordable.',
     'For agent-driven automation (Claude, ChatGPT, custom agents) the same account also exposes an MCP server; that protocol surface is documented on its own page.',
   ],
@@ -803,17 +803,17 @@ const automateShorts = () => ({
        "webhook_url": "https://your-server.com/hooks/openshorts",
        "webhook_secret": "your-shared-secret"}'</code></pre>
 <p>The response returns a job id immediately. Minutes later, when the clips are
-cut, subtitled and archived, OpenShorts POSTs once to your webhook URL with the
+cut, subtitled and archived, Shortify Agent POSTs once to your webhook URL with the
 job outcome, clip titles and download links durable enough to fetch later. A
 failed job also fires the webhook, so your pipeline never hangs on silence.</p>
 
 <h2>Verifying the webhook</h2>
 <p>If you passed a <code>webhook_secret</code>, the request carries an
-<code>X-OpenShorts-Signature</code> header of the form
+<code>X-Shortify-Signature</code> header of the form
 <code>sha256=&lt;hex&gt;</code>: the HMAC-SHA256 of the raw request body under
 your secret. Recompute it and compare in constant time:</p>
 <pre><code>expected = "sha256=" + hmac.new(secret, raw_body, hashlib.sha256).hexdigest()
-hmac.compare_digest(expected, request.headers["X-OpenShorts-Signature"])</code></pre>
+hmac.compare_digest(expected, request.headers["X-Shortify-Signature"])</code></pre>
 <p>Reject anything that does not match and you have closed the door on forged
 deliveries.</p>
 
@@ -840,7 +840,7 @@ write the curl, the CLI wraps it:</p>
 is no per-call price, no separate API tier and no automation surcharge. As of
 August 2026 that is not the market default: the mainstream tools meter their
 APIs per source minute or per operation, on top of subscription tiers, so an
-always-on pipeline runs with a taxi meter attached. Self-hosted OpenShorts has
+always-on pipeline runs with a taxi meter attached. Self-hosted Shortify Agent has
 no meter of any kind, and the hosted plans are flat:</p>
 ${pricingParagraph}
 
@@ -853,10 +853,10 @@ client setup live on the <a href="/mcp">MCP server and API page</a>.</p>
 ${faqBlock([
   {
     q: 'Can I automate YouTube Shorts creation with an open source tool?',
-    a: 'Yes. OpenShorts is MIT-licensed and its self-hosted edition serves the same REST API and MCP server as the hosted service, with no metering. One POST submits a video, a signed webhook returns the finished clips, and the publishing endpoint posts them to YouTube Shorts, TikTok and Instagram Reels.',
+    a: 'Yes. Shortify Agent is MIT-licensed and its self-hosted edition serves the same REST API and MCP server as the hosted service, with no metering. One POST submits a video, a signed webhook returns the finished clips, and the publishing endpoint posts them to YouTube Shorts, TikTok and Instagram Reels.',
   },
   {
-    q: 'Is there an n8n integration for OpenShorts?',
+    q: 'Is there an n8n integration for Shortify Agent?',
     a: 'There is no official n8n template yet, and none is required: the integration is a generic HTTP Request node posting to /api/process plus a Webhook trigger receiving the completion payload. Any platform with those two primitives, n8n, Zapier, Make or plain cron, can run the whole loop.',
   },
   {
@@ -873,7 +873,7 @@ ${sources([
   faq: [
     {
       q: 'Can I automate YouTube Shorts creation with an open source tool?',
-      a: 'Yes: OpenShorts self-hosted serves the same REST API, MCP server and signed webhooks as the hosted service, MIT-licensed and unmetered. One POST in, one signed webhook out.',
+      a: 'Yes: Shortify Agent self-hosted serves the same REST API, MCP server and signed webhooks as the hosted service, MIT-licensed and unmetered. One POST in, one signed webhook out.',
     },
     {
       q: 'Do automated API calls cost more than using the dashboard?',
@@ -884,18 +884,18 @@ ${sources([
 
 const mcpAgentsPage = () => ({
   path: '/mcp',
-  title: 'Automate Video Clipping with AI Agents: MCP Server, API & Webhooks | OpenShorts',
+  title: 'Automate Video Clipping with AI Agents: MCP Server, API & Webhooks | Shortify Agent',
   description:
-    'OpenShorts ships a built-in MCP server, so Claude, ChatGPT, Cursor or n8n can clip and publish videos for you. REST API with keys, completion webhooks, self-hostable. Hosted from $12/month.',
+    'Shortify Agent ships a built-in MCP server, so Claude, ChatGPT, Cursor or n8n can clip and publish videos for you. REST API with keys, completion webhooks, self-hostable. Hosted from $12/month.',
   h1: 'Clip and publish video from an AI agent',
   breadcrumb: [{ name: 'MCP server and API' }],
   tldr: [
-    'OpenShorts has a native MCP server at mcp.openshorts.app/mcp. Connect any MCP client, Claude, ChatGPT, Cursor or a custom agent, and a prompt like "clip this podcast and schedule the best three to TikTok" becomes one instruction instead of an afternoon in an editor.',
+    'Shortify Agent has a native MCP server at mcp.openshorts.app/mcp. Connect any MCP client, Claude, ChatGPT, Cursor or a custom agent, and a prompt like "clip this podcast and schedule the best three to TikTok" becomes one instruction instead of an afternoon in an editor.',
     'Six tools cover the whole pipeline: process_video, get_job_status, list_clips, get_quota, add_subtitles and publish_clip. There is also a plain REST API with per-user keys, and completion webhooks so pipelines never poll.',
-    'The difference that survives comparison shopping is the meter. Most clipping tools now have an API, and Opus Clip added an MCP server in July 2026, but they meter agent calls per source minute or per operation. OpenShorts API calls draw from the same flat minute balance as the dashboard, and the self-hosted edition, free and MIT-licensed, serves the same MCP endpoint with no meter at all.',
+    'The difference that survives comparison shopping is the meter. Most clipping tools now have an API, and Opus Clip added an MCP server in July 2026, but they meter agent calls per source minute or per operation. Shortify Agent API calls draw from the same flat minute balance as the dashboard, and the self-hosted edition, free and MIT-licensed, serves the same MCP endpoint with no meter at all.',
   ],
   body: `
-<h2>What can an agent actually do with OpenShorts?</h2>
+<h2>What can an agent actually do with Shortify Agent?</h2>
 <p>Everything the dashboard does. The MCP server is not a wrapper around a
 subset of features: each tool calls the same pipeline the web app uses, with the
 same account, the same minutes and the same job history. An agent can take a
@@ -942,7 +942,7 @@ server can run:</p>
 <table>
 <thead><tr><th>Tool</th><th>MCP server</th><th>REST API</th><th>How agent calls are billed</th></tr></thead>
 <tbody>
-<tr><td class="os">OpenShorts</td><td class="os yes">Yes, hosted and self-hosted</td><td class="os yes">Yes, with signed webhooks</td><td class="os">Same flat minute balance as the dashboard; self-hosted has no meter</td></tr>
+<tr><td class="os">Shortify Agent</td><td class="os yes">Yes, hosted and self-hosted</td><td class="os yes">Yes, with signed webhooks</td><td class="os">Same flat minute balance as the dashboard; self-hosted has no meter</td></tr>
 <tr><td>Opus Clip</td><td class="yes">Yes, since July 2026</td><td>Yes</td><td>Credits per source minute, expiring in 60 days</td></tr>
 <tr><td>Reap</td><td class="yes">Yes, plus CLI</td><td>Yes</td><td>Subscription from $9.99/month, metered minutes</td></tr>
 <tr><td>Klap</td><td>No</td><td>Yes</td><td>Per operation, roughly $0.32 to $0.48 each</td></tr>
@@ -972,20 +972,18 @@ request:</p>
 <p>Yes, a zero-dependency one on PyPI. It talks to the same REST surface as
 everything else, so the terminal, the dashboard and the agents can never
 disagree about what a job did:</p>
-<pre><code>pip install openshorts   # or: uvx openshorts
-
-export OPENSHORTS_API_KEY=osk_...
-openshorts process "https://youtube.com/watch?v=..." --wait
-openshorts clips &lt;job_id&gt;
-openshorts publish &lt;job_id&gt; 0 --platforms tiktok,youtube</code></pre>
+<pre><code>pip install shortify   # or: uvx shortify
+shortify process "https://youtube.com/watch?v=..." --wait
+shortify clips &lt;job_id&gt;
+shortify publish &lt;job_id&gt; 0 --platforms tiktok,youtube</code></pre>
 <p>Point <code>OPENSHORTS_API_URL</code> at <code>http://localhost:8000</code>
 and the same binary drives a self-hosted instance with no key.</p>
 
 <h2>How do completion webhooks work?</h2>
-<p>Pass <code>webhook_url</code> when starting a job and OpenShorts sends
+<p>Pass <code>webhook_url</code> when starting a job and Shortify Agent sends
 exactly one POST when the job finishes or fails, with clip titles and download
 links in the body. Add a <code>webhook_secret</code> and the body is signed with
-HMAC-SHA256 in the <code>X-OpenShorts-Signature</code> header so your receiver
+HMAC-SHA256 in the <code>X-Shortify-Signature</code> header so your receiver
 can verify the sender. This is what lets an n8n, Zapier or cron pipeline run
 without a polling loop.</p>
 
@@ -1003,15 +1001,15 @@ balance as the dashboard, so automation does not change the price of anything.</
 
 ${faqBlock([
   {
-    q: 'Does OpenShorts have an MCP server?',
+    q: 'Does Shortify Agent have an MCP server?',
     a: 'Yes, a native one at mcp.openshorts.app/mcp using the Streamable HTTP transport. It exposes six tools covering the full pipeline: process_video, get_job_status, list_clips, get_quota, add_subtitles and publish_clip. Authentication is an API key created in the dashboard, sent as a Bearer token.',
   },
   {
-    q: 'Can Claude or ChatGPT create video clips with OpenShorts?',
+    q: 'Can Claude or ChatGPT create video clips with Shortify Agent?',
     a: 'Yes. Any MCP-capable client, including Claude and ChatGPT, can connect to mcp.openshorts.app/mcp with an API key and drive the whole flow: submit a video URL, wait for processing, list the generated clips and publish them to TikTok, Instagram or YouTube.',
   },
   {
-    q: 'Is there an API for OpenShorts?',
+    q: 'Is there an API for Shortify Agent?',
     a: 'Yes, a REST API documented at api.openshorts.app/docs, authenticated with per-user osk_ keys created in the dashboard. It covers processing, status, subtitles, publishing and completion webhooks.',
   },
   {
@@ -1020,22 +1018,22 @@ ${faqBlock([
   },
   {
     q: 'How is this different from the Opus Clip MCP server?',
-    a: 'The tool surface is similar: both expose around six tools covering processing, captions and publishing. The differences are billing and deployment. Opus Clip meters MCP usage in credits per source minute, and those credits expire in 60 days; OpenShorts draws from a flat minute balance with no per-call pricing. And only OpenShorts can run the same MCP server on your own machine, unmetered, because the code is MIT-licensed.',
+    a: 'The tool surface is similar: both expose around six tools covering processing, captions and publishing. The differences are billing and deployment. Opus Clip meters MCP usage in credits per source minute, and those credits expire in 60 days; Shortify Agent draws from a flat minute balance with no per-call pricing. And only Shortify Agent can run the same MCP server on your own machine, unmetered, because the code is MIT-licensed.',
   },
 ])}
 
 ${sources([
   `MCP specification and transports at <a href="https://modelcontextprotocol.io" rel="noopener">modelcontextprotocol.io</a>.`,
-  `OpenShorts server implementation in the project source at <a href="${SITE.repo}" rel="noopener">github.com/mutonby/openshorts</a>.`,
+  `Shortify Agent server implementation in the project source at <a href="${SITE.repo}" rel="noopener">github.com/mutonby/openshorts</a>.`,
 ])}
 `,
   faq: [
     {
-      q: 'Does OpenShorts have an MCP server?',
+      q: 'Does Shortify Agent have an MCP server?',
       a: 'Yes, a native MCP server at mcp.openshorts.app/mcp with six tools covering the full pipeline, authenticated with an API key created in the dashboard.',
     },
     {
-      q: 'Can Claude or ChatGPT create video clips with OpenShorts?',
+      q: 'Can Claude or ChatGPT create video clips with Shortify Agent?',
       a: 'Yes. Any MCP-capable client can connect with an API key and drive the whole flow from video URL to published clip.',
     },
     {
@@ -1044,7 +1042,7 @@ ${sources([
     },
     {
       q: 'How is this different from the Opus Clip MCP server?',
-      a: 'Similar tool surface, different billing and deployment: Opus Clip meters MCP usage in credits per source minute that expire in 60 days, while OpenShorts draws from a flat minute balance, and only OpenShorts can run the same MCP server self-hosted and unmetered.',
+      a: 'Similar tool surface, different billing and deployment: Opus Clip meters MCP usage in credits per source minute that expire in 60 days, while Shortify Agent draws from a flat minute balance, and only Shortify Agent can run the same MCP server self-hosted and unmetered.',
     },
   ],
 })

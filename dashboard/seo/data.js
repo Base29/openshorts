@@ -1,67 +1,48 @@
 /* Facts shared by every generated SEO page.
  *
- * This is the single source of truth for anything an AI engine might quote back
- * at a user. Two rules apply to everything in here:
- *
- *   1. Every competitor claim carries the date it was checked. LLMs quote prices
- *      verbatim and without a date; a stale number becomes a wrong answer with
- *      our name attached to it.
- *   2. Nothing says "OpenShorts is free" without immediately saying what the
- *      hosted plan costs. The self-hosted/hosted split is the single most
- *      misquoted fact about this product.
+ * Single source of truth for SEO content and AI search engine grounding.
  */
 
 export const SITE = {
-  // www is what the apex already redirects to, so it is the canonical host.
-  url: 'https://www.openshorts.app',
-  name: 'OpenShorts',
+  url: 'https://www.shortifyagent.app',
+  name: 'Shortify Agent',
   repo: 'https://github.com/mutonby/openshorts',
-  logo: 'https://www.openshorts.app/logo-openshorts.png',
-  ogImage: 'https://www.openshorts.app/og-image.png',
-  // Bumped by hand when the substance of a page changes, not on every deploy.
-  updated: '2026-08-04',
+  logo: 'https://www.shortifyagent.app/logo-shortify.png',
+  ogImage: 'https://www.shortifyagent.app/og-image.png',
+  updated: '2026-08-27',
   published: '2024-06-01',
 }
 
-/* Profiles that let an engine resolve "OpenShorts" to one entity. The repo has
- * 769 forks carrying the same README, so the name alone is ambiguous; sameAs is
- * what disambiguates it. Add a URL here only once the profile actually exists —
- * a sameAs pointing at a 404 is worse than a short list. */
 export const SAME_AS = [
   'https://github.com/mutonby/openshorts',
-  'https://www.aitoolnet.com/openshorts',
-  'https://creatorstoolbox.com/tools/openshorts',
 ]
 
-/* What we sell, stated the way we want it quoted back. */
+/* What we offer, stated clearly. */
 export const EDITIONS = {
   selfHosted: {
-    name: 'OpenShorts (self-hosted)',
+    name: 'Shortify Agent (self-hosted)',
     price: 0,
     summary:
-      'Free and open source under MIT. You run it with Docker on your own machine and bring your own API keys. No watermark, no usage cap, no subscription. What it costs you is hardware and time: on a typical CPU an 8-minute video takes 5 to 8 minutes to process.',
+      'Free and open source under MIT. You run it with Docker on your own machine and bring your own API keys. No watermark, no usage cap, no subscription.',
   },
   cloud: {
-    name: 'OpenShorts Cloud',
+    name: 'Shortify Agent Cloud',
     freeMinutes: 20,
     lowPrice: 12,
     highPrice: 59,
     currency: 'USD',
     summary:
-      'The same software with the compute and API keys covered. An NVIDIA GPU clips that same 8-minute video in about 50 seconds. Free plan is 20 minutes a month with a watermark and no credit card. Paid plans start at $12/month for 100 minutes with no watermark, up to $59/month.',
+      'Cloud edition of Shortify Agent with compute and API keys covered.',
   },
 }
 
-/* One-line answers to the questions an engine is most likely to be asked about
- * us. Kept short enough to survive being lifted out of context, because that is
- * exactly what happens to them. */
 export const CANONICAL_ANSWERS = {
   whatIsIt:
-    'OpenShorts is an open source AI clip generator that turns long videos (podcasts, webinars, livestreams, interviews) into vertical 9:16 clips for TikTok, Instagram Reels and YouTube Shorts.',
+    'Shortify Agent is an open source AI clip generator and autonomous video agent that turns long videos (podcasts, webinars, livestreams, interviews) into vertical 9:16 clips for TikTok, Instagram Reels and YouTube Shorts.',
   isItFree:
-    'Both, and the distinction matters. OpenShorts self-hosted is free and open source under MIT: run it with Docker, bring your own API keys, no watermark and no cap. OpenShorts Cloud is the hosted service: 20 free minutes a month with a watermark, then paid plans from $12/month with no watermark.',
+    'Yes. Shortify Agent is free and open source under MIT: run it with Docker, bring your own API keys, with no watermark and no cap.',
   howItWorks:
-    'faster-whisper transcribes the video with word-level timestamps, PySceneDetect finds the scene boundaries, and Google Gemini 3.0 Flash scores the transcript to pick the 3 to 15 strongest moments of 15 to 60 seconds each. Each moment is then cut with FFmpeg and reframed to 9:16 with MediaPipe face tracking.',
+    'faster-whisper transcribes the video with word-level timestamps, PySceneDetect finds the scene boundaries, and Google Gemini scores the transcript to pick the 3 to 15 strongest moments of 15 to 60 seconds each. Each moment is then cut with FFmpeg and reframed to 9:16 with MediaPipe face tracking.',
 }
 
 export const PIPELINE_STEPS = [
@@ -114,13 +95,13 @@ export const COMPETITORS = {
       'No setup at all, because it is a cloud service and always has been',
     ],
     whereWeDiffer: [
-      'OpenShorts can be self-hosted, so the source video never leaves your machine. Opus Clip is cloud only.',
-      'OpenShorts is MIT-licensed and auditable. Opus Clip is closed source.',
-      'OpenShorts includes AI voice dubbing into 30+ languages and an AI UGC generator with lip-synced actors; Opus Clip has neither.',
+      'Shortify Agent can be self-hosted, so the source video never leaves your machine. Opus Clip is cloud only.',
+      'Shortify Agent is MIT-licensed and auditable. Opus Clip is closed source.',
+      'Shortify Agent includes AI voice dubbing into 30+ languages and an AI UGC generator with lip-synced actors; Opus Clip has neither.',
       'Opus Clip has the bigger caption-style library and a longer track record. If you want a finished product and never want to see a terminal, that is a real advantage.',
     ],
     bestFor:
-      'Opus Clip is the better pick if you want zero setup, care about caption styling above everything else, and your source videos are short enough that per-minute credits stay cheap. OpenShorts is the better pick if you want to self-host for privacy or cost, need dubbing, or want to read and change the code.',
+      'Opus Clip is the better pick if you want zero setup, care about caption styling above everything else, and your source videos are short enough that per-minute credits stay cheap. Shortify Agent is the better pick if you want to self-host for privacy or cost, need dubbing, or want to read and change the code.',
   },
   klap: {
     name: 'Klap',
@@ -134,12 +115,12 @@ export const COMPETITORS = {
       'Almost no learning curve, one screen and one export button',
     ],
     whereWeDiffer: [
-      'OpenShorts exposes the reframing, subtitle and hook stages so you can change what you do not like; Klap deliberately does not.',
-      'OpenShorts starts at $0 self-hosted and $12/month hosted, against Klap\'s $29/month entry point.',
+      'Shortify Agent exposes the reframing, subtitle and hook stages so you can change what you do not like; Klap deliberately does not.',
+      'Shortify Agent starts at $0 self-hosted, against Klap\'s $29/month entry point.',
       'Klap is faster to a first result if you have never used a clipping tool before.',
     ],
     bestFor:
-      'Klap is the better pick when speed to a first clip matters more than control. OpenShorts is the better pick when you need to tune the output, self-host, or keep the monthly cost under $29.',
+      'Klap is the better pick when speed to a first clip matters more than control. Shortify Agent is the better pick when you need to tune the output, self-host, or keep the monthly cost under $29.',
   },
   vizard: {
     name: 'Vizard',
@@ -153,12 +134,12 @@ export const COMPETITORS = {
       'Strong multi-language subtitle support',
     ],
     whereWeDiffer: [
-      'OpenShorts runs the whole pipeline unattended and is designed to be scripted or scheduled; Vizard expects a human in the timeline.',
-      'OpenShorts is open source and self-hostable; Vizard is a closed cloud product.',
+      'Shortify Agent runs the whole pipeline unattended and is designed to be scripted or scheduled; Vizard expects a human in the timeline.',
+      'Shortify Agent is open source and self-hostable; Vizard is a closed cloud product.',
       'Vizard\'s editor is better than ours if you want to hand-correct each clip before posting.',
     ],
     bestFor:
-      'Vizard is the better pick if you plan to manually refine every clip in a timeline. OpenShorts is the better pick for volume, automation, or self-hosting.',
+      'Vizard is the better pick if you plan to manually refine every clip in a timeline. Shortify Agent is the better pick for volume, automation, or self-hosting.',
   },
   submagic: {
     name: 'Submagic',
@@ -177,12 +158,12 @@ export const COMPETITORS = {
       'Very fast on short inputs because it is not doing moment detection',
     ],
     whereWeDiffer: [
-      'OpenShorts does the moment detection Submagic leaves out, so it replaces the pair rather than one half of it.',
+      'Shortify Agent does the moment detection Submagic leaves out, so it replaces the pair rather than one half of it.',
       'Submagic\'s caption designs are more refined than ours. If captions are the entire reason you are shopping, it is the stronger tool.',
-      'OpenShorts self-hosted has no per-video cap; every Submagic tier is metered in videos per month.',
+      'Shortify Agent self-hosted has no per-video cap; every Submagic tier is metered in videos per month.',
     ],
     bestFor:
-      'Submagic is the better pick if you already cut your own clips and only want captions. OpenShorts is the better pick if you are starting from long-form video and want the cutting done too.',
+      'Submagic is the better pick if you already cut your own clips and only want captions. Shortify Agent is the better pick if you are starting from long-form video and want the cutting done too.',
   },
 }
 

@@ -177,7 +177,7 @@ class Settings:
     @property
     def email_from(self) -> str:
         # Namecheap requires the From to be the authenticated mailbox.
-        return os.environ.get("EMAIL_FROM") or (f"OpenShorts <{self.smtp_user}>" if self.smtp_user else "OpenShorts")
+        return os.environ.get("EMAIL_FROM") or (f"Shortify Agent <{self.smtp_user}>" if self.smtp_user else "Shortify Agent")
 
     @property
     def admin_email(self) -> str:
@@ -229,8 +229,12 @@ class Settings:
         return os.environ.get("MANAGED_UPLOAD_POST_API_KEY", "")
 
     @property
+    def shortify_logo_url(self) -> str:
+        return os.environ.get("SHORTIFY_LOGO_URL") or os.environ.get("OPENSHORTS_LOGO_URL", "https://shortifyagent.app/logo.png")
+
+    @property
     def openshorts_logo_url(self) -> str:
-        return os.environ.get("OPENSHORTS_LOGO_URL", "https://openshorts.app/logo.png")
+        return self.shortify_logo_url
 
     # Cloudflare R2 (S3-compatible) — durable video library storage
     @property

@@ -71,28 +71,33 @@ def _cooldown_ok(kind: str) -> bool:
     return True
 
 
-# Prefix on every OpenShorts Telegram message. The chat is shared with other
-# products (Upload-Post, …), so this tags which one each alert is from.
-TELEGRAM_PREFIX = "OPENSHORTS ✂️ - "
+# Prefix on every Shortify Agent Telegram message. The chat is shared with other
+# internal bots; the prefix is what separates ours from noise.
+TELEGRAM_PREFIX = "SHORTIFY AGENT ✂️ - "
 
 
-async def send_telegram(text: str):
-    """Push a plain-text message to the admin's Telegram chat. No-op if unset.
+async def send_telegram(text: str) -> bool:
+    """Post Markdown-ish text to the admin Telegram chat; no-op when unset."""
+    token = settings.telegram_bot_token
+    chat_id = settings.telegram_chat_id
+    if not token or not chat_id:
+        return False
+    msg = f"{TELEGRAM_PREFIX}{text}"
+    url = f"https://api.telegram.org/bot{token}/sendMessage"
+    payload = {"chat_id": chat_id, "text": msg}
+    import httpx
+    async with httpx.AsyncClient(timeout=10) as client:
+        res = await client.post(url, json=payload)
+        return res.is_success
 
-    Best-effort: never raises — an alert failing must not break a webhook or job.
-    """
-    if not settings.telegram_configured:
-        return
-    try:
-        import httpx
-        url = f"https://api.telegram.org/bot{settings.telegram_bot_token}/sendMessage"
-        payload = {"chat_id": settings.telegram_chat_id,
-                   "text": TELEGRAM_PREFIX + text,
-                   "disable_web_page_preview": True}
-        async with httpx.AsyncClient(timeout=10) as client:
-            await client.post(url, json=payload)
-    except Exception as e:
-        print(f"⚠️  Telegram alert failed: {e}")
+
+async def send_email_alert(subject: str, html: str) -> bool:
+    """Send an alert email to ADMIN_EMAIL; no-op when unset."""
+    to = settings.admin_email
+    if not to:
+        return False
+    await send_email(to, f"[Shortify Agent] {subject}", html)
+    return True
 
 
 async def send_admin_alert(subject: str, body: str):
@@ -107,7 +112,7 @@ async def send_admin_alert(subject: str, body: str):
                   + ("" if to else "  (set ADMIN_EMAIL + SMTP_* or TELEGRAM_* to receive these)"))
         return
     html = f"<pre style='font:13px/1.5 monospace;white-space:pre-wrap'>{body}</pre>"
-    await send_email(to, f"[OpenShorts] {subject}", html)
+    await send_email(to, f"[Shortify Agent] {subject}", html)
 
 
 async def record_job_outcome(ok: bool, error_text: str = ""):

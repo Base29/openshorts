@@ -19,14 +19,15 @@ clips' absolute URLs and everything else is inline.
 """
 import json
 
-CLIP_PICKER_URI = "ui://openshorts/clip-picker"
+CLIP_PICKER_URI = "ui://shortify/clip-picker"
+LEGACY_CLIP_PICKER_URI = "ui://openshorts/clip-picker"
 MIME_TYPE = "text/html;profile=mcp-app"
 
 RESOURCES = [
     {
         "uri": CLIP_PICKER_URI,
         "name": "clip-picker",
-        "title": "OpenShorts clip picker",
+        "title": "Shortify Agent clip picker",
         "description": (
             "Interactive picker for a job's finished clips: preview each 9:16 "
             "clip, select the keepers and publish them to TikTok, Instagram or "
@@ -81,7 +82,7 @@ button:disabled{opacity:.4;cursor:default}
 </div>
 <div class="msg" id="msg"></div>
 <script>
-var inline = __OPENSHORTS_DATA__;
+var inline = __SHORTIFY_DATA__;
 var state = null;
 var selected = {};
 
@@ -192,4 +193,4 @@ def clip_picker_html(data=None) -> str:
     """
     payload = "null" if data is None else json.dumps(
         data, ensure_ascii=False).replace("<", "\\u003c")
-    return _TEMPLATE.replace("__OPENSHORTS_DATA__", payload)
+    return _TEMPLATE.replace("__SHORTIFY_DATA__", payload).replace("__OPENSHORTS_DATA__", payload)

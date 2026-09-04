@@ -3,11 +3,12 @@
 // a 402 (quota exceeded) into a typed QuotaError the UI can catch to prompt a top-up.
 import { getApiUrl } from '../config';
 
-export const AUTH_TOKEN_KEY = 'openshorts_auth';
+export const AUTH_TOKEN_KEY = 'shortify_auth';
+const LEGACY_AUTH_TOKEN_KEY = 'openshorts_auth';
 
-export const getToken = () => localStorage.getItem(AUTH_TOKEN_KEY) || '';
-export const setToken = (t) => localStorage.setItem(AUTH_TOKEN_KEY, t);
-export const clearToken = () => localStorage.removeItem(AUTH_TOKEN_KEY);
+export const getToken = () => localStorage.getItem(AUTH_TOKEN_KEY) || localStorage.getItem(LEGACY_AUTH_TOKEN_KEY) || '';
+export const setToken = (t) => { localStorage.setItem(AUTH_TOKEN_KEY, t); };
+export const clearToken = () => { localStorage.removeItem(AUTH_TOKEN_KEY); localStorage.removeItem(LEGACY_AUTH_TOKEN_KEY); };
 
 export class QuotaError extends Error {
   constructor(detail) {

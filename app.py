@@ -1058,9 +1058,11 @@ async def _webhook_clip_entries(job_id, job):
 
 
 async def _deliver_webhook(url, body: bytes, secret):
-    headers = {"Content-Type": "application/json", "User-Agent": "OpenShorts-Webhook/1.0"}
+    headers = {"Content-Type": "application/json", "User-Agent": "Shortify-Agent-Webhook/1.0"}
     if secret:
-        headers["X-OpenShorts-Signature"] = _sign_webhook(body, secret)
+        sig = _sign_webhook(body, secret)
+        headers["X-Shortify-Signature"] = sig
+        headers["X-OpenShorts-Signature"] = sig
     from security_utils import assert_public_url, UnsafeURLError
     loop = asyncio.get_event_loop()
     for attempt, delay in enumerate(WEBHOOK_RETRY_DELAYS, 1):
@@ -1706,7 +1708,7 @@ async def download_all_clips(job_id: str, request: Request):
     return FileResponse(
         zip_path,
         media_type="application/zip",
-        filename=f"openshorts_clips_{job_id[:8]}.zip",
+        filename=f"shortify_clips_{job_id[:8]}.zip",
         background=BackgroundTask(os.remove, zip_path),
     )
 
@@ -3717,12 +3719,12 @@ async def gallery_html_page():
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>AI UGC Video Gallery | OpenShorts</title>
-<meta name="description" content="Browse {len(videos)} AI-generated UGC marketing videos. Create viral TikTok and Instagram Reels for your SaaS product.">
+<title>AI UGC Video Gallery | Shortify Agent</title>
+<meta name="description" content="Browse {len(videos)} AI-generated UGC marketing videos. Create viral TikTok and Instagram Reels for your product.">
 <meta name="robots" content="index, follow">
-<meta property="og:title" content="AI UGC Video Gallery | OpenShorts">
+<meta property="og:title" content="AI UGC Video Gallery | Shortify Agent">
 <meta property="og:type" content="website">
-<meta property="og:description" content="Browse AI-generated UGC marketing videos for SaaS products.">
+<meta property="og:description" content="Browse AI-generated UGC marketing videos.">
 <script type="application/ld+json">{ld_json}</script>
 <style>
 *{{margin:0;padding:0;box-sizing:border-box}}
@@ -3735,7 +3737,7 @@ h1{{font-size:28px;font-weight:700;padding:40px 20px 0;text-align:center}}
 </style>
 </head>
 <body>
-<nav><strong style="font-size:18px">OpenShorts</strong><a href="/" class="cta">Create Your Video</a></nav>
+<nav><strong style="font-size:18px">Shortify Agent</strong><a href="/" class="cta">Create Your Video</a></nav>
 <h1>AI-Generated UGC Videos</h1>
 <p class="subtitle">{len(videos)} videos generated · Low Cost & Premium modes</p>
 <div class="grid">{cards_html}</div>
@@ -3776,7 +3778,7 @@ async def video_html_page(video_id: str):
 <html lang="{language}">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>{title} - AI UGC Video | OpenShorts</title>
+<title>{title} - AI UGC Video | Shortify Agent</title>
 <meta name="description" content="{caption} {hashtags}">
 <meta property="og:type" content="video.other">
 <meta property="og:title" content="{title}">
@@ -3808,7 +3810,7 @@ h1{{font-size:22px;font-weight:700;margin-bottom:8px}}
 </style>
 </head>
 <body>
-<nav><strong>OpenShorts</strong><a href="/gallery">Gallery</a><span style="color:#3f3f46">›</span><span style="color:#e4e4e7;font-size:14px">{title}</span></nav>
+<nav><strong>Shortify Agent</strong><a href="/gallery">Gallery</a><span style="color:#3f3f46">›</span><span style="color:#e4e4e7;font-size:14px">{title}</span></nav>
 <div class="container">
 <div><video src="{video_url}" poster="{actor_url}" controls autoplay playsinline style="aspect-ratio:9/16;object-fit:cover"></video></div>
 <div>

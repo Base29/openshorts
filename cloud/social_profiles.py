@@ -74,11 +74,11 @@ async def get_connect_url(username: str) -> str:
     """Generate a branded, single-use connection URL (~1h) for the user's socials."""
     payload = {
         "username": username,
-        "logoImage": settings.openshorts_logo_url,
+        "logoImage": settings.shortify_logo_url,
         "connectTitle": "Connect your social accounts",
-        "connectDescription": "Link TikTok, Instagram and YouTube to post your shorts directly from OpenShorts.",
+        "connectDescription": "Link TikTok, Instagram and YouTube to post your shorts directly from Shortify Agent.",
         "redirectUrl": f"{settings.frontend_url}/#/account?connected=1",
-        "redirectButtonText": "Back to OpenShorts",
+        "redirectButtonText": "Back to Shortify Agent",
         "platforms": CONNECT_PLATFORMS,
         "showCalendar": True,  # keep the scheduling calendar available in the page
     }
